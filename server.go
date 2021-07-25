@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/davidka79/go-grp-study/greetpb"
+	"github.com/davidka79/greetpb"
 
 	"google.golang.org/grpc"
 )
@@ -23,5 +23,9 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	greetpb.RegisterGreetServiceServer(s, srv)
+	greetpb.RegisterGreetServiceServer(s, &server{})
+
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed server %v", err)
+	}
 }
