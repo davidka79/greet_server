@@ -13,6 +13,10 @@ import (
 type server struct {
 }
 
+func (s server) mustEmbedUnimplementedGteetServiceServer() {
+	panic("implement me")
+}
+
 func main() {
 	fmt.Println("Hello World")
 
@@ -23,7 +27,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	greetpb.RegisterGreetServiceServer(s, &server{})
+	greetpb.RegisterGteetServiceServer(s, &server{})
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed server %v", err)
